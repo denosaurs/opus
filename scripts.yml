@@ -1,0 +1,5 @@
+scripts:
+  pack:
+    cmd: "deno run scripts/pack.ts"
+    unstable: true
+    allow: "all"

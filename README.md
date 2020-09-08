@@ -2,14 +2,31 @@
 
 [![Tags](https://img.shields.io/github/release/denosaurs/opus)](https://github.com/denosaurs/opus/releases)
 [![CI Status](https://img.shields.io/github/workflow/status/denosaurs/opus/check)](https://github.com/denosaurs/opus/actions)
-[![Dependencies](https://img.shields.io/github/workflow/status/denosaurs/opus/depsbot?label=dependencies)](https://github.com/denosaurs/depsbot)
 [![License](https://img.shields.io/github/license/denosaurs/opus)](https://github.com/denosaurs/opus/blob/master/LICENSE)
 
----
+```typescript
+const SAMPLE_RATE = 48000;
+const FRAME = 20;
+const CHANNELS = 2;
 
-> ⚠️ Work in progress. Expect breaking changes.
+await Opus.load();
 
----
+// Optimize encoding for audio. Available applications are VOIP, AUDIO, and RESTRICTED_LOWDELAY
+let encoder = new Opus(SAMPLE_RATE, CHANNELS, OpusApplication.AUDIO);
+
+let frameSize = SAMPLE_RATE * FRAME / 1000;
+
+// Get PCM data from somewhere and encode it into opus
+let pcmData = new Uint8Array();
+let encodedPacket = encoder.encode(pcmData, frameSize);
+
+// Decode the opus packet back into PCM
+let decodedPacket = encoder.decode(encodedPacket);
+console.log(decodedPacket);
+
+// Delete the encoder when finished with it (Emscripten does not automatically call C++ object destructors)
+encoder.delete();
+```
 
 ## Maintainers
 
