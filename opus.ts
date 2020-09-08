@@ -1,5 +1,6 @@
 import _opus from "./pack/opuswasm.js";
 
+// deno-lint-ignore no-explicit-any
 let opus: any = null;
 
 /** Opus application type */
@@ -32,6 +33,7 @@ export class Opus {
   samplingRate: number;
   channels: number;
   application: OpusApplication;
+  // deno-lint-ignore no-explicit-any
   handler: any;
 
   inPCMLength: number;
@@ -59,11 +61,11 @@ export class Opus {
   constructor(
     samplingRate: number,
     channels?: number,
-    application?: OpusApplication
+    application?: OpusApplication,
   ) {
     if (!opus) {
       throw new Error(
-        "Opus.load() needs to be called before interacting with the Opus class"
+        "Opus.load() needs to be called before interacting with the Opus class",
       );
     }
 
@@ -80,33 +82,33 @@ export class Opus {
     this.handler = new handler.OpusScriptHandler(
       this.samplingRate,
       this.channels,
-      this.application
+      this.application,
     );
 
     this.inPCMLength = MAX_FRAME_SIZE * this.channels * 2;
     this.inPCMPointer = handler._malloc(this.inPCMLength);
     this.inPCM = handler.HEAPU16.subarray(
       this.inPCMPointer,
-      this.inPCMPointer + this.inPCMLength
+      this.inPCMPointer + this.inPCMLength,
     );
 
     this.inOpusPointer = handler._malloc(MAX_PACKET_SIZE);
     this.inOpus = handler.HEAPU8.subarray(
       this.inOpusPointer,
-      this.inOpusPointer + MAX_PACKET_SIZE
+      this.inOpusPointer + MAX_PACKET_SIZE,
     );
 
     this.outOpusPointer = handler._malloc(MAX_PACKET_SIZE);
     this.outOpus = handler.HEAPU8.subarray(
       this.outOpusPointer,
-      this.outOpusPointer + MAX_PACKET_SIZE
+      this.outOpusPointer + MAX_PACKET_SIZE,
     );
 
     this.outPCMLength = MAX_FRAME_SIZE * this.channels * 2;
     this.outPCMPointer = handler._malloc(this.outPCMLength);
     this.outPCM = handler.HEAPU16.subarray(
       this.outPCMPointer,
-      this.outPCMPointer + this.outPCMLength
+      this.outPCMPointer + this.outPCMLength,
     );
   }
 
@@ -118,7 +120,7 @@ export class Opus {
       this.inPCM.byteOffset,
       buffer.length,
       this.outOpusPointer,
-      frameSize
+      frameSize,
     );
     if (len < 0) {
       throw new Error("Encode error: " + OpusError[len]);
@@ -134,7 +136,7 @@ export class Opus {
     let len: number = this.handler._decode(
       this.inOpusPointer,
       buffer.length,
-      this.outPCM.byteOffset
+      this.outPCM.byteOffset,
     );
     if (len < 0) {
       throw new Error("Decode error: " + OpusError[len]);

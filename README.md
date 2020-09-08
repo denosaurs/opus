@@ -36,7 +36,7 @@ encoder.delete();
 
 ### Related
 
-- [link] - description
+- [opusscript](https://github.com/abalabahaha/opusscript) - nodejs bindings for libopus 1.3.1, ported with emscripten
 
 ### Contribution
 

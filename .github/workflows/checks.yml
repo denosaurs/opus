@@ -15,21 +15,7 @@ jobs:
           deno-version: v1.x
 
       - name: Run deno fmt
-        run: deno fmt --check
+        run: deno fmt --check opus.ts
 
       - name: Run deno lint
-        run: deno lint --unstable
-
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout sources
-        uses: actions/checkout@v2
-
-      - name: Setup latest deno version
-        uses: denolib/setup-deno@v2
-        with:
-          deno-version: v1.x
-
-      - name: Run deno test
-        run: deno test
+        run: deno lint --unstable opus.ts
