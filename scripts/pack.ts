@@ -1,8 +1,7 @@
-import { encode as encode64 } from "https://deno.land/std@0.68.0/encoding/base64.ts";
-import { encode as encodeUTF } from "https://deno.land/std@0.68.0/encoding/utf8.ts";
-import { join } from "https://deno.land/std@0.68.0/path/mod.ts";
-import { ensureDir } from "https://deno.land/std@0.68.0/fs/mod.ts";
-import { compress } from "https://deno.land/x/lz4@v0.1.2/mod.ts";
+import { encode as encode64 } from "https://deno.land/std@0.71.0/encoding/base64.ts";
+import { encode as encodeUTF } from "https://deno.land/std@0.71.0/encoding/utf8.ts";
+import { join } from "https://deno.land/std@0.71.0/path/mod.ts";
+import { ensureDir } from "https://deno.land/std@0.71.0/fs/mod.ts";
 import { minify } from "https://jspm.dev/terser@5.2.1";
 
 function log(text: string): void {
@@ -34,7 +33,7 @@ const prelude = `export const source = Uint8Array
 .from(atob("${encoded}"), c => c.charCodeAt(0));`;
 
 const exit = `export default Module({
-  wasmBinary: Deno.readFileSync("./build/opuswasm.wasm")
+  wasmBinary: source
 })`;
 
 let glue = await Deno.readTextFile(eWrapper);
