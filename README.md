@@ -44,4 +44,8 @@ Pull request, issues and feedback are very welcome. Code style is formatted with
 
 ### Licence
 
-Copyright 2020-present, the denosaurs team. All rights reserved. MIT license.
+This project is using the MIT license and is a port of [abalabahaha/opusscript](https://github.com/abalabahaha/opusscript)
+to deno.
+
+Copyright (c) 2016-2020 abalabahaha
+Copyright (c) 2020-2021 the denosaurs team
